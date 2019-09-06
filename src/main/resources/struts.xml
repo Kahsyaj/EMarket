@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <package name="default" extends="struts-default">
+
+        <default-action-ref name="index"/>
+
+        <action name="index">
+            <result>/jsp/index.jsp</result>
+        </action>
+
+        <action name="new_product">
+            <result>/jsp/product/new_product.jsp</result>
+        </action>
+
+        <action name="admin" class="actions.AdminAction" method="doDisplay">
+            <result name="success">/jsp/admin.jsp</result>
+            <result name="input">/jsp/admin.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <action name="admin_form" class="actions.AdminAction">
+            <result>/jsp/log_admin.jsp</result>
+        </action>
+
+        <action name="log_admin"
+                class="actions.AdminAction"
+                method="doLog">
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+            <result name="input">/jsp/log_admin.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="god">god</param>
+                <param name="actionName">admin</param>
+            </result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <action name="create_product"
+                class="actions.ProductAction"
+                method="doCreate">
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+            <result name="input">/jsp/product/create_product.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">read_product</param>
+                <param name="id">${product.id}</param>
+            </result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <action name="read_product"
+                class="actions.ProductAction"
+                method="doRead">
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+            <result name="success">/jsp/product/read_product.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <action name="update_product"
+                class="actions.ProductAction"
+                method="doUpdate">
+            <result name="input">/jsp/product/update_product.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">read_product</param>
+                <param name="id">${product.id}</param>
+            </result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <action name="delete_product"
+                class="actions.ProductAction"
+                method="doDelete">
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+            <result name="input">/jsp/product/delete_product.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">list_products</param>
+            </result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <action name="list_products"
+                class="actions.ProductAction"
+                method="doList">
+            <result>/jsp/product/list_products.jsp</result>
+        </action>
+
+        <action name="new_customer">
+            <result>/jsp/customer/new_customer.jsp</result>
+        </action>
+
+        <action name="create_customer"
+                class="actions.CustomerAction"
+                method="doCreate">
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+            <result name="input">/jsp/product/create_customer.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">read_customer</param>
+                <param name="id">${customer.id}</param>
+            </result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <action name="read_customer"
+                class="actions.CustomerAction"
+                method="doRead">
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+            <result name="success">/jsp/customer/read_customer.jsp</result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <action name="update_customer"
+                class="actions.CustomerAction"
+                method="doUpdate">
+            <result name="input">/jsp/customer/update_customer.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">read_customer</param>
+                <param name="id">${customer.id}</param>
+            </result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <action name="delete_customer"
+                class="actions.CustomerAction"
+                method="doDelete">
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" />
+            <result name="input">/jsp/customer/delete_customer.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">list_customers</param>
+            </result>
+            <result name="error">/jsp/error.jsp</result>
+        </action>
+
+        <action name="list_customers"
+                class="actions.CustomerAction"
+                method="doList">
+            <result>/jsp/customer/list_customers.jsp</result>
+        </action>
+    </package>
+</struts>
